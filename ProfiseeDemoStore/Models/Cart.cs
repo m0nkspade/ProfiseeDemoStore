@@ -1,45 +1,43 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProfiseeDemo.Models
+namespace ProfiseeDemo.Models;
+
+public class Cart
 {
 
-	public class Cart
+	public List<CartLine> Lines { get; set; } = new List<CartLine>();
+
+	public virtual void AddItem(Product product, int quantity)
 	{
+		CartLine line = Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
 
-		public List<CartLine> Lines { get; set; } = new List<CartLine>();
-
-		public virtual void AddItem(Product product, int quantity)
+		if (line == null)
 		{
-			CartLine line = Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
-
-			if (line == null)
+			Lines.Add(new CartLine
 			{
-				Lines.Add(new CartLine
-				{
-					Product = product,
-					Quantity = quantity
-				});
-			}
-			else
-			{
-				line.Quantity += quantity;
-			}
+				Product = product,
+				Quantity = quantity
+			});
 		}
-
-		public virtual void RemoveLine(Product product) =>
-			 Lines.RemoveAll(l => l.Product.ProductID == product.ProductID);
-
-		public decimal ComputeTotalValue() =>
-			 Lines.Sum(e => e.Product.Price * e.Quantity);
-
-		public virtual void Clear() => Lines.Clear();
+		else
+		{
+			line.Quantity += quantity;
+		}
 	}
 
-	public class CartLine
-	{
-		public int CartLineID { get; set; }
-		public Product Product { get; set; }
-		public int Quantity { get; set; }
-	}
+	public virtual void RemoveLine(Product product) =>
+		 Lines.RemoveAll(l => l.Product.ProductID == product.ProductID);
+
+	public decimal ComputeTotalValue() =>
+		 Lines.Sum(e => e.Product.Price * e.Quantity);
+
+	public virtual void Clear() => Lines.Clear();
+}
+
+public class CartLine
+{
+	public int CartLineID { get; set; }
+	public Product Product { get; set; }
+	public int Quantity { get; set; }
 }
