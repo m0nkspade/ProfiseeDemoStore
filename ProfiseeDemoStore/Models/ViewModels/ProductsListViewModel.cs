@@ -1,6 +1,6 @@
 ﻿using ProfiseeDemo.Models;
 
-namespace SportsStore.Models.ViewModels;
+namespace ProfiseeDemo.Models.ViewModels;
 
 public class ProductsListViewModel
 {

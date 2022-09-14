@@ -1,5 +1,7 @@
 ﻿using ProfiseeDemo.Models;
 
+namespace ProfiseeDemo.Models.ViewModels;
+
 public class PagingInfo
 {
 	public int TotalItems { get; set; }

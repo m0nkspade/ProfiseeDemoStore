@@ -1,8 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using ProfiseeDemo.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Get Connection String
+string connectionString = builder.Configuration.GetConnectionString("<not defined yet>");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString)));
 
+// Keep all builder stuff defined above this line:
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -14,6 +23,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
