@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProfiseeDemoStore.Models;
+using ProfiseeDemo.Models;
 using System.Diagnostics;
 
 namespace ProfiseeDemoStore.Controllers
@@ -18,10 +18,6 @@ namespace ProfiseeDemoStore.Controllers
 			return View();
 		}
 
-		public IActionResult Privacy()
-		{
-			return View();
-		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
