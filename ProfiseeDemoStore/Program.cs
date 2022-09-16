@@ -4,7 +4,7 @@ using ProfiseeDemo.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Get Connection String
-string connectionString = builder.Configuration.GetConnectionString("<not defined yet>");
+string connectionString = builder.Configuration.GetConnectionString("myDb1");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
