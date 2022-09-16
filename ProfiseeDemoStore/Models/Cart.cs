@@ -6,15 +6,15 @@ namespace ProfiseeDemo.Models;
 public class Cart
 {
 
-	public List<CartLine> Lines { get; set; } = new List<CartLine>();
+	public List<CartRec> Lines { get; set; } = new List<CartRec>();
 
 	public virtual void AddItem(Product product, int quantity)
 	{
-		CartLine line = Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
+		CartRec? line = Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
 
 		if (line == null)
 		{
-			Lines.Add(new CartLine
+			Lines.Add(new CartRec
 			{
 				Product = product,
 				Quantity = quantity
@@ -26,18 +26,16 @@ public class Cart
 		}
 	}
 
-	public virtual void RemoveLine(Product product) =>
-		 Lines.RemoveAll(l => l.Product.ProductID == product.ProductID);
+	public void RemoveLine(Product product) => Lines.RemoveAll(l => l.Product.ProductID == product.ProductID);
 
-	public decimal ComputeTotalValue() =>
-		 Lines.Sum(e => e.Product.Price * e.Quantity);
+	public decimal ComputeTotalValue() => Lines.Sum(e => e.Product.Price * e.Quantity);
 
-	public virtual void Clear() => Lines.Clear();
+	public void Clear() => Lines.Clear();
 }
 
-public class CartLine
+public class CartRec
 {
 	public int CartLineID { get; set; }
-	public Product Product { get; set; }
+	public Product? Product { get; set; }
 	public int Quantity { get; set; }
 }
